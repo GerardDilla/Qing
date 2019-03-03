@@ -2,11 +2,7 @@
 	<!-- Basic -->
 	<meta charset="UTF-8">
 
-<<<<<<< HEAD
 	<title><?php echo $this->data['Module_title']; ?></title>
-=======
-	<title>Boxed Layout | Okler Themes | Porto-Admin</title>
->>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 	<meta name="keywords" content="HTML5 Admin Template" />
 	<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 	<meta name="author" content="okler.net">
@@ -22,6 +18,11 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/magnific-popup/magnific-popup.css" />
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
+
+	<!-- Datatable -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/select2/select2.css" />
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+	
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/stylesheets/theme.css" />

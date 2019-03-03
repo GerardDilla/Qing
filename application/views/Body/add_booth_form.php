@@ -10,15 +10,11 @@
 		<div class="col-lg-12">
 			<section class="panel">
 				<header class="panel-heading">
-<<<<<<< HEAD
 					<!--
-=======
->>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 					<div class="panel-actions">
 						<a href="#" class="fa fa-caret-down"></a>
 						<a href="#" class="fa fa-times"></a>
 					</div>
-<<<<<<< HEAD
 					-->
 					<h2 class="panel-title">Fill in the Details</h2>
 				</header>
@@ -38,34 +34,32 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-3 control-label" for="inputDefault">Department</label>
+							<label class="col-md-3 control-label" for="inputDefault">Department / Location</label>
 							<div class="col-md-6">
 								<input type="text" name="counterdept" required class="form-control" id="inputDefault">
 							</div>
 						</div>
+						<!--
 						<div class="form-group">
 							<label class="col-md-3 control-label">Personnel</label>
 							<div class="col-md-6">
-								<select required name="counterpersonnel" data-plugin-selectTwo class="form-control populate">
-										<option value="">Select A Personnel incharge</option>
-										<option value="1">Alaska</option>
-										<option value="2">Hawaii</option>
-								</select>
+								<?php 
+									$option[''] = 'Select A Personnel incharge';
+									foreach($this->data['List']['array'] as $row){
+										$option[$row['accountID']] = strtoupper($row['fullname']);
+									}
+									$attribute = 'required data-plugin-selectTwo class="form-control populate"';
+									echo form_dropdown('counterpersonnel', $option,'',$attribute);
+
+								?>
 							</div>
 						</div>
+						-->
 						<div class="form-group">
 							<div class="col-md-12" style="text-align:center">
 								<button class="btn btn-success" type="submit" name="button" value="1">Submit</button>
 							</div>
 						</div>
-=======
-	
-					<h2 class="panel-title">Fill in the Details</h2>
-				</header>
-				<div class="panel-body">
-					<form class="form-horizontal form-bordered" method="get">
-						
->>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 					</form>
 				</div>
 			</section>

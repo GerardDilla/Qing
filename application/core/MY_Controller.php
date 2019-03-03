@@ -35,10 +35,16 @@ class MY_Controller extends CI_Controller {
            $this->template['footer'] = $this->load->view($this->layout.'Footer.php', $this->data, true);
            $this->load->view($this->layout.'Template', $this->template);
     }
-
-    public function login()
+    public function title($msg){ 
+        $this->data['Module_title'] = $msg;
+    }
+    public function message($msg){
+		$this->session->set_flashdata('message',$msg);
+    }
+    public function logout()
     {
-     
+        $this->session->unset_userdata('token');
+        redirect('Login','refresh');
     }
 
 		

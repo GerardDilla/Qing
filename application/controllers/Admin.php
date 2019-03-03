@@ -8,25 +8,28 @@ class Admin extends MY_Controller {
         parent::__construct();
 
 		$this->load->library('set_views');
-<<<<<<< HEAD
 		$this->data['Module_title'] = 'SDMC QUEUING SYSTEM';
 		$this->load->model('Queueing_Model');
-=======
-		$this->data['Module_title'] = 'WELCOME!';
->>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
+
+		if(!$this->session->userdata('token')){
+			$this->message('Login First');
+			redirect('Login','refresh');
+		}
         
-    }
+  }
 	public function index()
 	{
-		$this->Home();
+			$this->Home();
+
 	}
 	public function Home()
 	{
 		$this->AdminTemplate($this->set_views->homepage());
 	}
-<<<<<<< HEAD
 	public function AddCounter(){
-		$this->data['Module_title'] = 'ADD COUNTER';
+
+		$this->title('ADD COUNTER');
+		$this->data['List'] = $this->Queueing_Model->account_list();
 		$this->AdminTemplate($this->set_views->add_booth_form());
 	}
 	public function add_counter(){
@@ -35,8 +38,7 @@ class Admin extends MY_Controller {
 		if(isset($button)){
 			$array = array(
 				'Counter' => $this->input->post('counter'),
-				'Department' => $this->input->post('counterdept'),
-				'accountID' => $this->input->post('counterpersonnel'),
+				'Department' => $this->input->post('counterdept')
 			);
 			//Checks duplicates
 			if(($this->Queueing_Model->validate_duplicate_counter($array)) != 0){
@@ -54,8 +56,10 @@ class Admin extends MY_Controller {
 		}
 	}
 	public function AddAccount(){
-		$this->data['Module_title'] = 'REGISTER ACCOUNT';
+
+		$this->title('REGISTER ACCOUNT');
 		$this->AdminTemplate($this->set_views->add_account_form());
+
 	}
 	public function add_account(){
 		$button = $this->input->post('button');
@@ -81,20 +85,116 @@ class Admin extends MY_Controller {
 		}
 	}
 	public function Sessions(){
-		$this->data['Module_title'] = 'QUEUE SESSIONS';
+
+		$this->title('QUEUE SESSIONS');
 		$this->data['List'] = $this->Queueing_Model->counter_list();
+		$this->data['Sessions'] = $this->Queueing_Model->session_list();
 		$this->AdminTemplate($this->set_views->sessionhandler());
+
 	}
-	public function message($msg){
-		$this->session->set_flashdata('message',$msg);
-		//echo $msg;
+	public function ManageSession($session_id = ''){
+
+		$this->title('MANAGE SESSION: '.$session_id);
+
+		$array = array(
+
+			'session_id' => $session_id,
+
+		);
+		$this->data['Data'] = $this->Queueing_Model->session_info($array);
+		if($this->data['Data']['count'] != 0){
+			//echo $this->data['Data']['array'][0]['Counter'];
+			$this->load->view('Layout/SessionManageTemplate');
+		}else{
+			echo '<h1>Please Select a Session in the Manage Session page</h2>';
+		}
+		
+		//$this->AdminTemplate($this->set_views->sessionhandler());
 	}
-=======
-	public function AddBooth()
-	{
-		$this->data['Module_title'] = 'ADD BOOTH';
-		$this->AdminTemplate($this->set_views->add_booth_form());
+	public function custom_queue(){
+		$value = $this->input->get('custom_queue');
+		$id = $this->input->get('session_id');
+		$array = array(
+			'Count' => $value,
+			'session_id' => $id
+		);
+		if(($this->Queueing_Model->custom_session($array)) === TRUE){
+			echo 1;
+		}
+		
 	}
->>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
+	public function plus_queue(){
+
+		$id = $this->input->get('session_id');
+		$array = array(
+			'session_id' => $id
+		);
+		if(($this->Queueing_Model->session_plus_count($array)) === TRUE){
+			echo 1;
+		}
+		
+	}
+	public function minus_queue(){
+
+		$id = $this->input->get('session_id');
+		$array = array(
+			'session_id' => $id
+		);
+		if(($this->Queueing_Model->session_minus_count($array)) === TRUE){
+			echo 1;
+		}
+		
+	}
+	public function refresh_queue(){
+
+		$id = $this->input->get('session_id');
+		$array = array(
+			'session_id' => $id
+		);
+		$result = $this->Queueing_Model->session_info($array);
+		if($result['count'] != 0){
+			echo json_encode($result['array']);
+		}else{
+			echo 0;
+		}
+		
+	}
+	public function add_session(){
+
+		$array = array(
+
+			'countID' => $this->input->post('countID'),
+			'accountID' => $this->session->userdata('accountID')
+
+		);
+		if(($this->Queueing_Model->validate_duplicate_session($array)) != 0){
+			$this->message('Counter Already has an Active Session');
+			redirect($this->router->fetch_class().'/Sessions','refresh');
+		}
+		if($this->Queueing_Model->insert_session($array)){
+			$this->message('Session Activated!');
+		}else{
+			$this->message('Encountered Error in Activating Session');
+		}
+		redirect($this->router->fetch_class().'/Sessions','refresh');
+
+	}
+	public function remove_session(){
+
+		$array = array(
+
+			'session_id' => $this->input->post('session_id')
+
+		);
+		if(($this->Queueing_Model->deactivate_session($array)) === TRUE){
+			$this->message('Session Ended');
+		
+		}
+		redirect($this->router->fetch_class().'/Sessions','refresh');
+
+	}
+
+
+
 
 }
