@@ -20,6 +20,7 @@ class set_views
 		return $this->body.'/add_booth_form';
 		
 	}
+<<<<<<< HEAD
 	public function add_account_form(){
 
 		return $this->body.'/add_account_form';
@@ -32,6 +33,8 @@ class set_views
 	}
 
 	
+=======
+>>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 	
 
 }

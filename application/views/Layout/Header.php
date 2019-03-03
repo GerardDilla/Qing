@@ -2,7 +2,11 @@
 	<!-- Basic -->
 	<meta charset="UTF-8">
 
+<<<<<<< HEAD
 	<title><?php echo $this->data['Module_title']; ?></title>
+=======
+	<title>Boxed Layout | Okler Themes | Porto-Admin</title>
+>>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 	<meta name="keywords" content="HTML5 Admin Template" />
 	<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 	<meta name="author" content="okler.net">

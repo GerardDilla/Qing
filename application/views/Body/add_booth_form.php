@@ -10,11 +10,15 @@
 		<div class="col-lg-12">
 			<section class="panel">
 				<header class="panel-heading">
+<<<<<<< HEAD
 					<!--
+=======
+>>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 					<div class="panel-actions">
 						<a href="#" class="fa fa-caret-down"></a>
 						<a href="#" class="fa fa-times"></a>
 					</div>
+<<<<<<< HEAD
 					-->
 					<h2 class="panel-title">Fill in the Details</h2>
 				</header>
@@ -54,6 +58,14 @@
 								<button class="btn btn-success" type="submit" name="button" value="1">Submit</button>
 							</div>
 						</div>
+=======
+	
+					<h2 class="panel-title">Fill in the Details</h2>
+				</header>
+				<div class="panel-body">
+					<form class="form-horizontal form-bordered" method="get">
+						
+>>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 					</form>
 				</div>
 			</section>

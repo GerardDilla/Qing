@@ -8,8 +8,12 @@ class Admin extends MY_Controller {
         parent::__construct();
 
 		$this->load->library('set_views');
+<<<<<<< HEAD
 		$this->data['Module_title'] = 'SDMC QUEUING SYSTEM';
 		$this->load->model('Queueing_Model');
+=======
+		$this->data['Module_title'] = 'WELCOME!';
+>>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
         
     }
 	public function index()
@@ -20,6 +24,7 @@ class Admin extends MY_Controller {
 	{
 		$this->AdminTemplate($this->set_views->homepage());
 	}
+<<<<<<< HEAD
 	public function AddCounter(){
 		$this->data['Module_title'] = 'ADD COUNTER';
 		$this->AdminTemplate($this->set_views->add_booth_form());
@@ -84,5 +89,12 @@ class Admin extends MY_Controller {
 		$this->session->set_flashdata('message',$msg);
 		//echo $msg;
 	}
+=======
+	public function AddBooth()
+	{
+		$this->data['Module_title'] = 'ADD BOOTH';
+		$this->AdminTemplate($this->set_views->add_booth_form());
+	}
+>>>>>>> 737b3fec89a2187ad5259897f1919b591651df82
 
 }
