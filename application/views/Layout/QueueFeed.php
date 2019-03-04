@@ -42,20 +42,25 @@
 
 		<style>
 			.clock {
-				position: absolute;
-				top: 5%;
-				left: 50%;
-				transform: translateX(-50%) translateY(-50%);
 				color: #cc0000;
 				font-size: 60px;
 				letter-spacing: 7px;
+				margin-top:60px;
 			}
 		</style>
 
 	</head>
 	<body>
-		<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="" width="450" alt="Porto Admin" />
-		<div id="MyClockDisplay" class="clock"></div>
+		<div class="row">
+			<div class="col-md-4">
+				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogos.JPG" style="display:inline-block" width="100%" alt="Porto Admin" />
+			</div>
+			<div class="col-md-8">
+				<div id="MyClockDisplay" class="clock"></div>
+			</div>
+		</div>
+
+
 		<!-- start: page -->
 		<div class="row" style="padding:5%">
 			<div class="col-md-12 col-lg-12 col-xl-12 row" id="QueueContent">
@@ -63,7 +68,6 @@
 
 		
 			</div>
-
 		</div>
 		<!-- end: page -->
 
@@ -135,17 +139,12 @@
 					<section class="hidden-md panel panel-featured-left panel-featured-bottom  panel-featured-primary col-md-3 col-sm-4" style="height:200px">\
 						<div class="panel-body">\
 							<div class="widget-summary widget-summary-xlg">\
-								<div class="widget-summary-col widget-summary-col-icon">\
-									<div class="summary-icon bg-'+colors[count]+'">\
-										<i class="fa fa-ticket"></i>\
-									</div>\
-								</div>\
 								<div class="widget-summary-col">\
 									<div class="summary">\
-										<h4 class="title" style="font-size:250%">'+row['Counter']+'</h4><br>\
-										<p style="font-size:200%">'+row['Department']+'</p><br>\
+										<h4 class="title" style="font-size:2.5vw">'+row['Counter']+'</h4><br>\
+										<p style="font-size:1.5vw">'+row['Department']+'</p><br>\
 										<div class="info">\
-											<strong class="amount" style="font-size:300%">#: '+row['Count']+'</strong>\
+											<strong class="amount" style="font-size:3vw">#: '+row['Count']+'</strong>\
 										</div>\
 									</div>\
 									<div class="summary-footer">\

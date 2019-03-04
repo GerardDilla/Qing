@@ -193,7 +193,35 @@ class Admin extends MY_Controller {
 		redirect($this->router->fetch_class().'/Sessions','refresh');
 
 	}
+	public function long_polling(){
+		$this->load->view('Layout/long_polling_test');
+	}
+	public function msgsrv(){
 
+		$current_count = $this->input->get('result_count');
+		$result = $this->Queueing_Model->session_list();
+		if($current_count == '' || $current_count == 0){
+			$array = array(
+				'count' => count($result),
+				'result' => $result,
+			);
+			echo json_encode($array);
+			return;
+		}
+
+		while(count($result) == $current_count){
+
+			$result = $this->Queueing_Model->session_list();
+			sleep(3);
+		}
+		$array = array(
+			'count' => count($result),
+			'result' => $result,
+		);
+		echo json_encode($array);
+		return;
+		
+	}
 
 
 
