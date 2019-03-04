@@ -53,7 +53,7 @@
 	<body>
 		<div class="row">
 			<div class="col-md-4">
-				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogos.JPG" style="display:inline-block" width="100%" alt="Porto Admin" />
+				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="display:inline-block" width="100%" alt="Porto Admin" />
 			</div>
 			<div class="col-md-8">
 				<div id="MyClockDisplay" class="clock"></div>
@@ -70,6 +70,11 @@
 			</div>
 		</div>
 		<!-- end: page -->
+
+		<audio id="notifsound">
+			<source src="<?php echo base_url(); ?>assets/audio/open-ended.mp3" type="audio/mp3">
+			Your browser does not support the audio element.
+		</audio>
 
 
 		<!-- Vendor -->
@@ -95,6 +100,7 @@
 		<script src="<?php echo base_url(); ?>assets/javascripts/ui-elements/examples.widgets.js"></script>
 
 		<script>
+			countchange = '';
 
 			refresh_feed();
 			
@@ -132,8 +138,11 @@
 					6:'warning'
 				};
 				count = 1;
+				currentchange = '';
 				$.each(result, function(index, row) 
 				{
+					currentchange += row['Count'];
+
 					$('#QueueContent').append('\
 					\
 					<section class="hidden-md panel panel-featured-left panel-featured-bottom  panel-featured-primary col-md-3 col-sm-4" style="height:200px">\
@@ -161,8 +170,13 @@
 						count++;
 					}
 					
-
 				});
+				
+				if(currentchange != countchange){
+					$('#notifsound')[0].play();
+					countchange = currentchange;
+				}
+
 
 			}
 

@@ -26,7 +26,7 @@
         
         $.ajax({
             type: "GET",
-            url: "<?php echo base_url(); ?>index.php/Admin/msgsrv",
+            url: "<?php echo base_url(); ?>index.php/QueueFeed/msgsrv",
 			data: {result_count: result_count},
             async: true,
             cache: false,
