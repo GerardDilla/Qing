@@ -54,31 +54,19 @@
 
 	</head>
 	<body>
+
 		<div class="row">
-			<div class="col-md-4">
-				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo1.JPG" style="display:inline-block" width="100%" alt="Porto Admin" />
+			<div class="col-md-12" style="text-align:center; color:#000;">
+				<h1 style="font-size:1200%"><?php echo $this->data['data'][0]['Counter']; ?></h1>
+				<hr>
+				<h1 style="font-size:500%">- <?php echo $this->data['data'][0]['Department']; ?></h1>
+				<hr>
+				<h1 style="font-size:1000%">#<?php echo $this->data['data'][0]['Queue']; ?></h1>
+				<hr>
+				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="display:block" width="100%" />
 			</div>
-			<div class="col-md-8">
-				<div id="MyClockDisplay" class="clock"></div>
-			</div>
+			<hr>
 		</div>
-
-
-		<!-- start: page -->
-		<div class="row" style="padding:5%">
-			<div class="col-md-12 col-lg-12 col-xl-12 row" id="QueueContent">
-
-
-		
-			</div>
-		</div>
-		<!-- end: page -->
-
-		<audio id="notifsound">
-			<source src="<?php echo base_url(); ?>assets/audio/open-ended.mp3" type="audio/mp3">
-			Your browser does not support the audio element.
-		</audio>
-
 
 		<!-- Vendor -->
 		<script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.js"></script>
@@ -103,90 +91,9 @@
 		<script src="<?php echo base_url(); ?>assets/javascripts/ui-elements/examples.widgets.js"></script>
 
 		<script>
-			countchange = '';
 
-			refresh_feed();
-			
-
-			function refresh_feed(){
-
-				url = '<?php echo base_url(); ?>/index.php/QueueFeed/FeedContents';
-
-				ajax = $.ajax({
-					url: url,
-					type: 'GET',
-					success: function(response){
-						
-						result = JSON.parse(response);
-						display_queues(result);
-
-					},
-					fail: function(){
-
-						alert('Error: request failed');
-						return;
-					}
-				});
-			}
-
-			function display_queues(result){
-
-				$('#QueueContent').html('');
-				colors = {
-					1:'info',
-					2:'primary',
-					3:'secondary',
-					4:'success',
-					5:'danger',
-					6:'warning'
-				};
-				count = 1;
-				currentchange = '';
-				$.each(result, function(index, row) 
-				{
-					currentchange += row['Count'];
-
-					$('#QueueContent').append('\
-					\
-					<section class="hidden-md panel panel-featured-left panel-featured-'+colors[count]+' col-md-3 col-sm-4" style="height:200px">\
-						<div class="panel-body">\
-							<div class="widget-summary widget-summary-xlg">\
-								<div class="widget-summary-col">\
-									<div class="summary">\
-										<h4 class="title" style="font-size:2.5vw">'+row['Counter']+'</h4><br>\
-										<p style="font-size:1.5vw">'+row['Department']+'</p><br>\
-										<div style="padding-bottom:5px" class="info panel panel-featured-bottom panel-featured-'+colors[count]+'">\
-											<strong class="amount" style="font-size:3vw">#: '+row['Count']+'</strong>\
-										</div>\
-									</div>\
-									<div class="summary-footer">\
-									</div>\
-								</div>\
-							</div>\
-						</div>\
-					</section>\
-					\
-					');
-					if(count >= 6){
-						count = 1;
-					}else{
-						count++;
-					}
-					
-				});
-				
-				if(currentchange != countchange){
-					$('#notifsound')[0].play();
-					countchange = currentchange;
-				}
-
-			}
-
-			setInterval(function(){ 
-				
-				refresh_feed();
-			
-			}, 2000);
+			window.print();
+			setTimeout(function () { window.close(); }, 100);
 		
 		</script>
 
@@ -200,37 +107,7 @@
 			});
 		</script>
 
-		<!-- Show Time -->
-		<script>
-			function showTime(){
-				var date = new Date();
-				var h = date.getHours(); // 0 - 23
-				var m = date.getMinutes(); // 0 - 59
-				var s = date.getSeconds(); // 0 - 59
-				var session = "AM";
-				
-				if(h == 0){
-					h = 12;
-				}
-				
-				if(h > 12){
-					h = h - 12;
-					session = "PM";
-				}
-				
-				h = (h < 10) ? "0" + h : h;
-				m = (m < 10) ? "0" + m : m;
-				s = (s < 10) ? "0" + s : s;
-				
-				var time = h + ":" + m + ":" + s + " " + session;
-				document.getElementById("MyClockDisplay").innerText = time;
-				document.getElementById("MyClockDisplay").textContent = time;
-				
-				setTimeout(showTime, 1000);
-				
-			}
-			showTime();
-		</script>
+
 
 
 	

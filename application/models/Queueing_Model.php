@@ -114,6 +114,17 @@ class Queueing_Model extends CI_Model{
         return $this->db->trans_status();
         
     }
+    public function queue_plus_count($array){
+
+        $this->db->trans_start();
+        $this->db->where('session_id',$array['session_id']);
+        $this->db->set('Queue', 'Queue + 1', FALSE);
+        $this->db->update('q_sessions');
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
+        
+    }
     public function session_minus_count($array){
 
         $this->db->trans_start();

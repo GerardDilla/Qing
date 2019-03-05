@@ -64,7 +64,7 @@
 						</li>
 
 						<li>
-							<a href="index.html">
+							<a href="<?php echo base_url(); ?>index.php/QueueFeed/Kiosk" target="_blank">
 								<i class="fa fa-print" aria-hidden="true"></i>
 								<span>Ticket Printer</span>
 							</a>

@@ -30,6 +30,25 @@ class QueueFeed extends MY_Controller {
 		echo json_encode($result);
 
 	}
+	public function Kiosk(){
+
+		$this->load->view('Layout/PrintKiosk');
+
+	}
+	public function print_process($session_id = ''){
+
+		$array['session_id'] = $session_id;
+		if(($this->Queueing_Model->queue_plus_count($array)) === TRUE){
+			$this->data['data'] = $this->Queueing_Model->session_info($array)['array'];
+			$this->load->view('Layout/PrintProcessing');
+		}else{
+			echo 'Error: in print_process';
+		}
+		
+		
+		
+
+	}
 
 
 

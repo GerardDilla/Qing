@@ -55,12 +55,10 @@
 	</head>
 	<body>
 		<div class="row">
-			<div class="col-md-4">
-				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo1.JPG" style="display:inline-block" width="100%" alt="Porto Admin" />
+			<div class="col-md-12" style="text-align:center">
+				<h3>CHOOSE A COUNTER TO PRINT TICKET</h3>
 			</div>
-			<div class="col-md-8">
-				<div id="MyClockDisplay" class="clock"></div>
-			</div>
+			<hr>
 		</div>
 
 
@@ -148,7 +146,7 @@
 
 					$('#QueueContent').append('\
 					\
-					<section class="hidden-md panel panel-featured-left panel-featured-'+colors[count]+' col-md-3 col-sm-4" style="height:200px">\
+					<section data-sessionid="'+row['session_id']+'" onclick="print_ticket(this)" class="hidden-md panel panel-featured-left panel-featured-'+colors[count]+' col-md-3 col-sm-4" style="height:200px; cursor:pointer">\
 						<div class="panel-body">\
 							<div class="widget-summary widget-summary-xlg">\
 								<div class="widget-summary-col">\
@@ -200,37 +198,15 @@
 			});
 		</script>
 
-		<!-- Show Time -->
+		<!-- PRINTING -->
 		<script>
-			function showTime(){
-				var date = new Date();
-				var h = date.getHours(); // 0 - 23
-				var m = date.getMinutes(); // 0 - 59
-				var s = date.getSeconds(); // 0 - 59
-				var session = "AM";
-				
-				if(h == 0){
-					h = 12;
-				}
-				
-				if(h > 12){
-					h = h - 12;
-					session = "PM";
-				}
-				
-				h = (h < 10) ? "0" + h : h;
-				m = (m < 10) ? "0" + m : m;
-				s = (s < 10) ? "0" + s : s;
-				
-				var time = h + ":" + m + ":" + s + " " + session;
-				document.getElementById("MyClockDisplay").innerText = time;
-				document.getElementById("MyClockDisplay").textContent = time;
-				
-				setTimeout(showTime, 1000);
-				
-			}
-			showTime();
+		function print_ticket(object){
+			data = $(object).data('sessionid');
+			window.open('<?php echo base_url(); ?>index.php/QueueFeed/print_process/'+data, 'PRINT', 'window settings');
+		}
 		</script>
+
+
 
 
 	
