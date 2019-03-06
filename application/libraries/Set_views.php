@@ -25,11 +25,17 @@ class set_views
 		return $this->body.'/add_account_form';
 		
 	}
+	public function account_settings(){
+
+		return $this->body.'/account_settings';
+		
+	}
 	public function sessionhandler(){
 
 		return $this->body.'/sessionhandler';
 		
 	}
+
 
 	
 	

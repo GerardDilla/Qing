@@ -57,15 +57,14 @@
 
 		<div class="row">
 			<div class="col-md-12" style="text-align:center; color:#000;">
+				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="display:block" width="100%" />
+				<hr>
 				<h1 style="font-size:1200%"><?php echo $this->data['data'][0]['Counter']; ?></h1>
 				<hr>
 				<h1 style="font-size:500%">- <?php echo $this->data['data'][0]['Department']; ?></h1>
 				<hr>
 				<h1 style="font-size:1000%">#<?php echo $this->data['data'][0]['Queue']; ?></h1>
-				<hr>
-				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="display:block" width="100%" />
 			</div>
-			<hr>
 		</div>
 
 		<!-- Vendor -->

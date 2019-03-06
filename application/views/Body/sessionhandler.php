@@ -54,6 +54,7 @@
 							<th>Date Active(s)</th>
 							<th>Activated By</th>
 							<th>Current Queue</th>
+							<th>Tickets Printed/Given</th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -66,6 +67,7 @@
 							<td><?php echo $sess_row['date_active']; ?></td>
 							<td><?php echo strtoupper($sess_row['fullname']); ?></td>
 							<td><?php echo $sess_row['Count']; ?></td>
+							<td><?php echo $sess_row['Queue']; ?></td>
 							<td class="actions-hover">
 								<button type="submit" name="session_id" value="<?php echo $sess_row['session_id']; ?>" onclick="selectsession(this.value)" class="btn btn-md btn-default">Manage</button>
 								

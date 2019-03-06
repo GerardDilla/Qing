@@ -84,6 +84,77 @@ class Admin extends MY_Controller {
 			}
 		}
 	}
+	public function MyAccount(){
+
+		$this->title('ACCOUNTS');
+		$array['accountID'] = $this->session->userdata('accountID');
+		$this->data['Data'] = $this->Queueing_Model->account_info($array)['array'];
+		$this->AdminTemplate($this->set_views->account_settings());
+
+	}
+	public function UpdateAccount(){
+
+		$submit = $this->input->post('submit');
+		$msg = '';
+		if(isset($submit)){
+				$config = array(
+						array(
+										'field' => 'fullname',
+										'label' => 'Fullname',
+										'rules' => 'required'
+						),
+						array(
+										'field' => 'username',
+										'label' => 'Username',
+										'rules' => 'required',
+										'errors' => array(
+														'required' => 'You must provide a %s.',
+										),
+						),
+						array(
+										'field' => 'password',
+										'label' => 'Password',
+										'rules' => 'required'
+						),
+						array(
+										'field' => 're_password',
+										'label' => 'Password',
+										'rules' => 'matches[password]',
+										'errors' => array(
+											'matches' => 'Passwords Did not Match',
+										),
+						)
+				);
+
+			$this->form_validation->set_rules($config);
+
+			if($this->form_validation->run() == FALSE)
+			{
+					$msg = validation_errors();
+					
+			}
+			else
+			{
+					$array = array(
+						'accountID' => $this->session->userdata('accountID'),
+						'fullname' => $this->input->post('fullname'),
+						'username' => $this->input->post('username'),
+						'password' => $this->input->post('password')
+					);
+					if($this->Queueing_Model->update_account($array) == TRUE){
+						$msg = 'Account Updated!';
+					}else{
+						$msg = 'Error in Updating Account';
+					}
+
+			}
+
+
+			$this->session->set_flashdata('message',$msg);
+			redirect($this->router->fetch_class().'/MyAccount','refresh');
+		}
+
+	}
 	public function Sessions(){
 
 		$this->title('QUEUE SESSIONS');

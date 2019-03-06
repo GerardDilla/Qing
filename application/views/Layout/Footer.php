@@ -29,6 +29,10 @@
 			<!-- Theme Initialization Files -->
 			<script src="<?php echo base_url(); ?>assets/javascripts/theme.init.js"></script>
 
+			<!-- Modals -->
+			<script src="<?php echo base_url(); ?>assets/javascripts/ui-elements/examples.modals.js"></script>
+
+
 			<!--Session Selection-->
 			<script>
 			function selectsession(value){

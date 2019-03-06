@@ -43,7 +43,7 @@
 				<ul class="list-unstyled">
 					<li class="divider"></li>
 					<li>
-						<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> Account Settings</a>
+						<a role="menuitem" tabindex="-1" href="<?php echo base_url(); ?>index.php/Admin/MyAccount"><i class="fa fa-user"></i> Account Settings</a>
 					</li>
 					<li>
 						<a role="menuitem" tabindex="-1" href="<?php echo base_url(); ?>index.php/Admin/logout"><i class="fa fa-power-off"></i> Logout</a>

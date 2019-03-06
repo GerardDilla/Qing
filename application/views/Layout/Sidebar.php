@@ -40,7 +40,7 @@
 						<li class="nav-parent">
 							<a>
 								<i class="fa fa-group" aria-hidden="true"></i>
-								<span>Manage Accounts</span>
+								<span>Account Management</span>
 							</a>
 							<ul class="nav nav-children">
 								<li>
@@ -49,8 +49,8 @@
 									</a>
 								</li>
 								<li>
-									<a href="pages-signin.html">
-											Update Accounts
+									<a href="<?php echo base_url(); ?>index.php/Admin/MyAccount">
+											Account Settings
 									</a>
 								</li>
 							</ul>
@@ -63,11 +63,24 @@
 							</a>
 						</li>
 
-						<li>
-							<a href="<?php echo base_url(); ?>index.php/QueueFeed/Kiosk" target="_blank">
+						<li class="nav-parent">
+							<a>
 								<i class="fa fa-print" aria-hidden="true"></i>
-								<span>Ticket Printer</span>
+								<span>Ticket Manager</span>
 							</a>
+							<ul class="nav nav-children">
+
+								<li>
+									<a href="<?php echo base_url(); ?>index.php/QueueFeed/Kiosk" target="_blank">
+										Ticket Kiosk (Needs Printer)
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo base_url(); ?>index.php/QueueFeed/OnlineKiosk" target="_blank">
+										E-Ticketing 
+									</a>
+								</li>
+							</ul>
 						</li>
 
 						<li>

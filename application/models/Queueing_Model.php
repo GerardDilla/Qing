@@ -36,6 +36,28 @@ class Queueing_Model extends CI_Model{
         return $results;
 
     }
+    public function account_info($array){
+
+        $this->db->where('active',1);
+        $this->db->where('accountID',$array['accountID']);
+        $result = $this->db->get('q_accounts');
+        $results = array(
+           'array' =>  $result->result_array(),
+           'count' =>  $result->num_rows(),
+        );
+        return $results;
+
+    }
+    public function update_account($array){
+
+        $this->db->trans_start();
+        $this->db->where('accountID',$array['accountID']);
+        $this->db->update('q_accounts',$array);
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
+
+    }
     public function validate_login($array)
     { 
         

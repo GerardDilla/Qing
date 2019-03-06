@@ -55,12 +55,10 @@
 	</head>
 	<body>
 		<div class="row">
-			<div class="col-md-4">
-				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="display:inline-block" width="100%" alt="Porto Admin" />
+			<div class="col-md-12" style="text-align:center">
+				<h3>CLICK A COUNTER TO DOWNLOAD TICKET</h3>
 			</div>
-			<div class="col-md-8">
-				<div id="MyClockDisplay" class="clock"></div>
-			</div>
+			<hr>
 		</div>
 
 
@@ -73,6 +71,25 @@
 			</div>
 		</div>
 		<!-- end: page -->
+		
+		<div id="print_panel" style="display:none; width:500px; margin:0px auto 0px auto; padding-top:150px">
+		
+		<div class="row" id="capture" >
+			<div class="col-md-12" style="text-align:center; color:#000;">
+				<img src="<?php echo base_url(); ?>assets/images/SDMC/sdmclogo.JPG" style="display:block" width="100%" />
+				<hr>
+				<p>Your Counter is:</p>
+				<h1 style="font-size:4vw" id="counter"></h1>
+				<hr>
+				<p>Located at:</p>
+				<h1 style="font-size:3vw" id="department"></h1>
+				<hr>
+				<p>Your Queue is:</p>
+				<h1 style="font-size:5vw" id="queue"></h1>
+			</div>
+			<hr>
+		</div>
+		</div>
 
 		<audio id="notifsound">
 			<source src="<?php echo base_url(); ?>assets/audio/open-ended.mp3" type="audio/mp3">
@@ -101,6 +118,13 @@
 		<!-- Theme Initialization Files -->
 		<script src="<?php echo base_url(); ?>assets/javascripts/jquery.cookie.js"></script>
 		<script src="<?php echo base_url(); ?>assets/javascripts/ui-elements/examples.widgets.js"></script>
+
+		<!-- For Ticket Downloading -->
+		<script src="<?php echo base_url(); ?>assets/javascripts/html2canvas.js"></script>
+
+	
+		<!-- Modals -->
+		<script src="<?php echo base_url(); ?>assets/javascripts/ui-elements/examples.modals.js"></script>
 
 		<script>
 			countchange = '';
@@ -148,7 +172,7 @@
 
 					$('#QueueContent').append('\
 					\
-					<section class="hidden-md panel panel-featured-left panel-featured-'+colors[count]+' col-md-3 col-sm-4" style="height:200px">\
+					<section data-sessionid="'+row['session_id']+'" href="#modalCenterIcon" onclick="select_ticket(this)" class="hidden-md panel panel-featured-left panel-featured-'+colors[count]+' col-md-3 col-sm-4" style="height:200px; cursor:pointer">\
 						<div class="panel-body">\
 							<div class="widget-summary widget-summary-xlg">\
 								<div class="widget-summary-col">\
@@ -200,37 +224,90 @@
 			});
 		</script>
 
-		<!-- Show Time -->
+		<!-- TICKETING -->
 		<script>
-			function showTime(){
-				var date = new Date();
-				var h = date.getHours(); // 0 - 23
-				var m = date.getMinutes(); // 0 - 59
-				var s = date.getSeconds(); // 0 - 59
-				var session = "AM";
-				
-				if(h == 0){
-					h = 12;
+		function download(session_id = ''){
+
+			html2canvas($('#capture')[0]).then(function(canvas) {
+					var a = document.createElement('a');
+					// toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+					a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+					a.download = 'ticket_'+session_id+'.jpg';
+					a.click();
+			});
+
+		}
+
+		function select_ticket(object){
+			session_id = $(object).data('sessionid');
+
+			url = '<?php echo base_url(); ?>/index.php/QueueFeed/session_info';
+
+			ajax = $.ajax({
+				url: url,
+				type: 'GET',
+				data: {session_id:session_id},
+				success: function(response){
+
+					result = JSON.parse(response);
+					if(result.length > 0){
+						display_ticket(result);
+						download_ticket(session_id);
+						download(session_id);
+					}else{
+						alert('Error in downloading ticket.');
+					}
+					
+				},
+				fail: function(){
+
+					alert('Error: request failed');
+					return;
+
 				}
-				
-				if(h > 12){
-					h = h - 12;
-					session = "PM";
+			});
+
+		}
+
+		function display_ticket(result){
+			$('#counter').html(result[0]['Counter']);
+			$('#department').html('- '+result[0]['Department']);
+			$('#queue').html('#: '+result[0]['Queue']);
+			//$('#ticketmodal').modal('show');
+			$('#print_panel').show();
+		}
+
+		function download_ticket(session_id){
+
+			url = '<?php echo base_url(); ?>/index.php/QueueFeed/add_queue';
+
+			ajax = $.ajax({
+				url: url,
+				type: 'GET',
+				data: {session_id:session_id},
+				success: function(response){
+
+					if(response ==1){
+						$('#print_panel').hide();
+
+					}else{
+						alert('Error in Adding Queue');
+					}
+					
+				},
+				fail: function(){
+
+					alert('Error: request failed');
+					return;
+
 				}
-				
-				h = (h < 10) ? "0" + h : h;
-				m = (m < 10) ? "0" + m : m;
-				s = (s < 10) ? "0" + s : s;
-				
-				var time = h + ":" + m + ":" + s + " " + session;
-				document.getElementById("MyClockDisplay").innerText = time;
-				document.getElementById("MyClockDisplay").textContent = time;
-				
-				setTimeout(showTime, 1000);
-				
-			}
-			showTime();
+			});
+		}
 		</script>
+
+
+
+
 
 
 	
