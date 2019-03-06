@@ -55,6 +55,55 @@ class Admin extends MY_Controller {
 			}
 		}
 	}
+	public function ManageCounters(){
+
+		$this->title('MANAGE COUNTERS');
+		$array['countID'] = $this->input->post('select_countID');
+		if(isset($array['countID'])){
+
+			$this->data['Data'] = $this->Queueing_Model->get_counter_info($array);
+			$this->message('Selected Counter: '.$this->data['Data'][0]['Counter']);
+
+		}
+		//$this->data['Data'] = $this->Queueing_Model->counter_list();
+		$this->data['List'] = $this->Queueing_Model->counter_list();
+		$this->AdminTemplate($this->set_views->countermanagement());
+
+	}
+	public function Update_counter(){
+		$array['countID'] = $this->input->post('update_countID');
+		$array['Counter'] = $this->input->post('counter');
+		$array['Department'] = $this->input->post('department');
+		if(isset($array['countID'])){
+			if(!$array['countID']){
+				$this->message('No Counter Selected');
+
+			}else{
+
+				if(($this->Queueing_Model->update_counter($array)) === TRUE){
+					$this->message('Counter Updated!');
+					
+				}else{
+					$this->message('Error in Updating Counter');
+				}
+
+			}
+		}
+		redirect($this->router->fetch_class().'/ManageCounters','refresh');
+	}
+	public function Remove_counter(){
+
+		$array['countID'] = $this->input->post('countID');
+		$array['active'] = 0;
+		if(($this->Queueing_Model->update_counter($array)) === TRUE){
+			$this->message('Counter Removed!');
+			
+		}else{
+			$this->message('Error in Removing Counter');
+		}
+		redirect($this->router->fetch_class().'/ManageCounters','refresh');
+
+	}
 	public function AddAccount(){
 
 		$this->title('REGISTER ACCOUNT');

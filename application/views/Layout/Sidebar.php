@@ -30,7 +30,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="pages-signin.html">
+									<a href="<?php echo base_url(); ?>index.php/Admin/ManageCounters">
 											Update Counter
 									</a>
 								</li>

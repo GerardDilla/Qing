@@ -18,6 +18,24 @@ class Queueing_Model extends CI_Model{
         return $result->num_rows();
 
     }
+    public function get_counter_info($array)
+    { 
+        
+        $this->db->where('countID',$array['countID']);
+        $result = $this->db->get('q_counter');
+        return $result->result_array();
+
+    }
+    public function update_counter($array)
+    { 
+        $this->db->trans_start();
+        $this->db->where('countID',$array['countID']);
+        $this->db->update('q_counter',$array);
+        $this->db->trans_complete();
+
+        return $this->db->trans_status();
+
+    }
     public function insert_account($array)
     { 
 

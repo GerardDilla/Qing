@@ -35,6 +35,11 @@ class set_views
 		return $this->body.'/sessionhandler';
 		
 	}
+	public function countermanagement(){
+
+		return $this->body.'/countermanagement';
+		
+	}
 
 
 	
